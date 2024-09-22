@@ -1,5 +1,5 @@
 <template>
-  <SuccessAlertView />
+  <!-- <SuccessAlertView /> -->
 
   <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -105,7 +105,7 @@ export default {
     const error = ref('')
     const register = () => {
       axios
-        .post('http://127.0.0.1:8000/api/auth/register', {
+        .post(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
           name: name.value,
           email: email.value,
           password: password.value,
@@ -122,4 +122,5 @@ export default {
     return { name, email, password, c_password, error, register }
   }
 }
+
 </script>
