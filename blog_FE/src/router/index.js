@@ -1,12 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import RegisterView from '../views/RegisterView.vue'
-import LoginView from '../views/LoginView.vue'
 import BlogView from '@/views/BlogView.vue'
 import AboutView from '@/views/AboutView.vue'
 import BlogPostView from '@/views/BlogPostView.vue'
 import AdminBlogView from '@/views/Admin/AdminBlogView.vue'
 import AdminAuthView from '@/views/Admin/AdminAuthView.vue'
 import AlertView from '@/views/AlertView.vue'
+import CreateBlogView from '@/views/Admin/CreateBlogView.vue'
+import EditBlogView from '../views/Admin/EditBlogView.vue'
+
+const isAuthenticated = () => {
+  return localStorage.getItem('authToken') !== null
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,11 +44,11 @@ const router = createRouter({
       name: 'register',
       component: RegisterView
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: LoginView
-    },
+    // {
+    //   path: '/login',
+    //   name: 'login',
+    //   component: LoginView
+    // },
     {
       path: '/about',
       name: 'about',
@@ -57,7 +62,46 @@ const router = createRouter({
     {
       path: '/adminBlog',
       name: 'adminBlog',
-      component: AdminBlogView
+      component: AdminBlogView,
+      beforeEnter: (to, from, next) => {
+        if (isAuthenticated()) {
+          next()
+        } else {
+          to('/admin')
+        }
+      }
+    },
+    {
+      path: '/createBlog',
+      name: 'createBlog',
+      component: CreateBlogView,
+      beforeEnter: (to, from, next) => {
+        if (isAuthenticated()) {
+          next()
+        } else {
+          to('/admin')
+        }
+      }
+    },
+    {
+      path: '/editBlog/:id',
+      name: 'editBlog',
+      component: EditBlogView,
+      beforeEnter: (to, from, next) => {
+        if (isAuthenticated()) {
+          next()
+        } else {
+          to('/admin')
+        }
+      }
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      beforeEnter: (to, from, next) => {
+        localStorage.removeItem('authToken')
+        next('/')
+      }
     }
   ]
 })

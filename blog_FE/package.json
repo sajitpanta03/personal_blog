@@ -11,6 +11,12 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.0.18",
+    "@tinymce/tinymce-vue": "^5.1.1",
+    "@tiptap/extension-image": "^2.7.2",
+    "@tiptap/extension-underline": "^2.7.2",
+    "@tiptap/pm": "^2.7.2",
+    "@tiptap/starter-kit": "^2.7.2",
+    "@tiptap/vue-3": "^2.7.2",
     "@vue-hero-icons/outline": "^1.7.2",
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
